@@ -81,6 +81,8 @@ def train_model(nn_model, w2v_model_en, tokenized_dialog_lines_en, tokenized_dia
     token_to_index_de = dict(zip(index_to_token_de.values(), index_to_token_de.keys()))
     test_sentences = get_test_senteces(TEST_DATASET_PATH)
 
+    print "STARTED"
+
     start_time = time.time()
     sents_batch_iteration = 1
 
@@ -91,10 +93,11 @@ def train_model(nn_model, w2v_model_en, tokenized_dialog_lines_en, tokenized_dia
 
         for X_train, Y_train in get_training_batch(w2v_model_en, dialog_lines_for_train_en, dialog_lines_for_train_de, token_to_index_de):
             nn_model.fit(X_train, Y_train, batch_size=TRAIN_BATCH_SIZE, nb_epoch=1, show_accuracy=True, verbose=1)
+            print "FIT DONE"
 
-            if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
-                log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
-                save_model(nn_model)
+            # if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
+            #     log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
+            #     save_model(nn_model)
 
             sents_batch_iteration += 1
 
