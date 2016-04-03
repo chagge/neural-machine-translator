@@ -53,7 +53,7 @@ def get_training_batch(w2v_model, tokenized_dialog_en,tokenized_dialog_de, token
             continue
 
         X = np.zeros((len(sents_batch)/2, INPUT_SEQUENCE_LENGTH, TOKEN_REPRESENTATION_SIZE), dtype=np.float)
-        Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, token_voc_size), dtype=np.bool)
+        Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, token_voc_size), dtype=np.float)
         # for s_index, sentence in enumerate(sents_batch):
         for s_index in range(0, len(sents_batch),2):
             print "s_index: ",s_index
