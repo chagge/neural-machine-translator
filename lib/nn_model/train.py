@@ -66,7 +66,7 @@ def get_training_batch(w2v_model, tokenized_dialog_en,tokenized_dialog_de, token
             for t_index, token in enumerate(sents_batch[s_index + 1][:ANSWER_MAX_TOKEN_LENGTH]):
                 Y[s_index/2, t_index, token_to_index_de[token]] = 1
 
-            print "LENGTHS X and Y:",len(X),len(Y)
+            print "SHAPES X and Y:",np.shape(X),np.shape(Y)
 
 
         yield X, Y
