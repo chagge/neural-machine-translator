@@ -45,7 +45,7 @@ def _batch(tokenized_dialog_lines_en,tokenized_dialog_lines_de, batch_size=2):
 
 
 def get_training_batch(w2v_model, tokenized_dialog_en,tokenized_dialog_de, token_to_index_de):
-    token_voc_size = len(token_to_index_de)
+    token_voc_size = len(token_to_index_d   e)
 
     for sents_batch in _batch(tokenized_dialog_en,tokenized_dialog_de, SAMPLES_BATCH_SIZE):
         print "sents_batch: ", np.shape(sents_batch)
@@ -61,17 +61,21 @@ def get_training_batch(w2v_model, tokenized_dialog_en,tokenized_dialog_de, token
             if s_index == len(sents_batch) - 1:
                 break
 
+            print "s_s_index: ",s_index/2
             for t_index, token in enumerate(sents_batch[s_index][:INPUT_SEQUENCE_LENGTH]):
                 X[s_index/2, t_index] = get_token_vector(token, w2v_model)
 
             for t_index, token in enumerate(sents_batch[s_index + 1][:ANSWER_MAX_TOKEN_LENGTH]):
                 Y[s_index/2, t_index, token_to_index_de[token]] = 1
 
+            print X[s_index/2]
+            print '-------------------------------------------------'
+            print Y[s_index/2]
             # print "SHAPES X and Y:",np.shape(X),np.shape(Y)
 
-        print X
-        print '------------'
-        print Y
+        # print X
+        # print '------------'
+        # print Y
         yield X, Y
 
 
