@@ -13,8 +13,12 @@ W2V_MODELS_DIR = 'w2v_models'
 
 CORPUS_NAME ="europarl-v7"
 
-CORPUS_NAME_EN = 'europarl-v7.de-en-64.en'
-CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
+# CORPUS_NAME_EN = 'europarl-v7.de-en-64.en'
+# CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
+
+CORPUS_NAME_EN = 'movie_lines_cleaned_10k-64.txt'
+CORPUS_NAME_DE = 'movie_lines_cleaned_10k-64.txt'
+
 CORPUS_PATH_EN = os.path.join('data/train', CORPUS_NAME_EN)
 CORPUS_PATH_DE = os.path.join('data/train', CORPUS_NAME_DE)
 
