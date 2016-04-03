@@ -48,6 +48,7 @@ def get_training_batch(w2v_model, tokenized_dialog_en,tokenized_dialog_de, token
     token_voc_size = len(token_to_index_de)
 
     for sents_batch in _batch(tokenized_dialog_en,tokenized_dialog_de, SAMPLES_BATCH_SIZE):
+        print "sents_batch: ", np.shape(sents_batch)
         if not sents_batch:
             continue
 
