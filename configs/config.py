@@ -1,5 +1,6 @@
 import os
 import time
+import numpy as np
 
 # set paths for storing models and results locally
 DATA_PATH = 'saved/'
@@ -20,19 +21,19 @@ BUCKETS = [(5, 10), (10, 15), (20, 25), (40, 50)]
 # CORPUS_NAME_EN = 'movie_lines_cleaned_10k-64.txt'
 # CORPUS_NAME_DE = 'movie_lines_cleaned_10k-64.txt'
 
-CORPUS_NAME_EN = 'europarl-v7.de-en-64.en'
-CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
+# CORPUS_NAME_EN = 'europarl-v7.de-en-64.en'
+# CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
 
 
-# CORPUS_NAME_EN = 'europarl-v7.de-en.en'
-# CORPUS_NAME_DE = 'europarl-v7.de-en.de'
+CORPUS_NAME_EN = 'europarl-v7.de-en.en'
+CORPUS_NAME_DE = 'europarl-v7.de-en.de'
 
 CORPUS_PATH_EN = os.path.join('data/train', CORPUS_NAME_EN)
 CORPUS_PATH_DE = os.path.join('data/train', CORPUS_NAME_DE)
 
 # set word2vec params
 TOKEN_REPRESENTATION_SIZE = 64
-TOKEN_MIN_FREQUENCY = 1
+TOKEN_MIN_FREQUENCY = 100
 
 #set seq2seq params
 HIDDEN_LAYER_DIMENSION = 128
