@@ -104,7 +104,7 @@ def train_model(nn_model, w2v_model_en, tokenized_dialog_lines_en, tokenized_dia
             print "FIT DONE"
 
             if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
-                log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
+                # log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
                 save_model(nn_model)
 
             sents_batch_iteration += 1

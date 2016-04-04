@@ -18,15 +18,19 @@ TEST_DATASET_PATH = os.path.join('data', 'test', 'test_set.txt')
 
 # CORPUS_NAME_EN = 'movie_lines_cleaned_10k-64.txt'
 # CORPUS_NAME_DE = 'movie_lines_cleaned_10k-64.txt'
-CORPUS_NAME_EN = 'europarl-v7.de-en-64.en'
-CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
+# CORPUS_NAME_EN = 'europarl-v7.de-en-64.en'
+# CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
+
+
+CORPUS_NAME_EN = 'europarl-v7.de-en.en'
+CORPUS_NAME_DE = 'europarl-v7.de-en.de'
 
 CORPUS_PATH_EN = os.path.join('data/train', CORPUS_NAME_EN)
 CORPUS_PATH_DE = os.path.join('data/train', CORPUS_NAME_DE)
 
 # set word2vec params
 TOKEN_REPRESENTATION_SIZE = 64
-TOKEN_MIN_FREQUENCY = 5
+TOKEN_MIN_FREQUENCY = 50
 
 #set seq2seq params
 HIDDEN_LAYER_DIMENSION = 128
