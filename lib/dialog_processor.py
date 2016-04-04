@@ -84,6 +84,8 @@ def process_corpus(corpus_path_en,corpus_path_de):
     transformed_dialog_lines_en = get_transformed_dialog_lines(tokenized_dialog_lines_for_transform_en, tokens_voc_en)
     transformed_dialog_lines_de = get_transformed_dialog_lines(tokenized_dialog_lines_for_transform_de, tokens_voc_de)
 
+    print "t_en",transformed_dialog_lines_en[0]
+
     _logger.info('Token voc size en = ' + str(len(tokens_voc_en)) + 'Token voc size en = ' + str(len(tokens_voc_de)))
     
     index_to_token_en = dict(enumerate(tokens_voc_en))

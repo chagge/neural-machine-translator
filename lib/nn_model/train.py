@@ -6,7 +6,7 @@ from collections import namedtuple
 import numpy as np
 
 from configs.config import INPUT_SEQUENCE_LENGTH, ANSWER_MAX_TOKEN_LENGTH, TOKEN_REPRESENTATION_SIZE, DATA_PATH, SAMPLES_BATCH_SIZE, \
-    TEST_PREDICTIONS_FREQUENCY, TRAIN_BATCH_SIZE, TEST_DATASET_PATH, NN_MODEL_PATH, FULL_LEARN_ITER_NUM
+    TEST_PREDICTIONS_FREQUENCY, TRAIN_BATCH_SIZE, TEST_DATASET_PATH, NN_MODEL_PATH, FULL_LEARN_ITER_NUM, BUCKETS
 from lib.nn_model.predict import predict_sentence
 from lib.w2v_model.vectorizer import get_token_vector
 from utilities.utilities import get_logger
@@ -34,6 +34,9 @@ def _batch(tokenized_dialog_lines_en,tokenized_dialog_lines_de, batch_size=2):
     batch = []
 
     for line_en,line_de in zip(tokenized_dialog_lines_en,tokenized_dialog_lines_de):
+        print "line_en: ", line_en
+        print "line_de: ", line_de
+        print len(line_en)
         batch.append(line_en)
         batch.append(line_de)
         if len(batch) == batch_size:
@@ -46,7 +49,6 @@ def _batch(tokenized_dialog_lines_en,tokenized_dialog_lines_de, batch_size=2):
 
 def get_training_batch(w2v_model, tokenized_dialog_en,tokenized_dialog_de, token_to_index_de):
     token_voc_size = len(token_to_index_de)
-
     for sents_batch in _batch(tokenized_dialog_en,tokenized_dialog_de, SAMPLES_BATCH_SIZE):
         print "sents_batch: ", np.shape(sents_batch)
         if not sents_batch:
