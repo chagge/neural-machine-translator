@@ -32,6 +32,7 @@ def _predict_sequence(input_sequence, nn_model, w2v_model, index_to_token, diver
 
     X = _sequence_to_vector(input_sequence, w2v_model)
     predictions = nn_model.predict(X, verbose=0)[0]
+    print "shape",np.shape(predictions)
     predicted_sequence = []
 
     for prediction_vector in predictions:

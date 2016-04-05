@@ -36,7 +36,7 @@ def _batch(tokenized_dialog_lines_en,tokenized_dialog_lines_de, batch_size=2):
     for line_en,line_de in zip(tokenized_dialog_lines_en,tokenized_dialog_lines_de):
         # print "line_en: ", line_en
         # print "line_de: ", line_de
-        print len(line_en)
+        # print len(line_en)
         batch.append(line_en)
         batch.append(line_de)
         if len(batch) == batch_size:
@@ -55,22 +55,23 @@ def get_training_batch(w2v_model_en, w2v_model_de, tokenized_dialog_en,tokenized
             continue
 
         X = np.zeros((len(sents_batch)/2, INPUT_SEQUENCE_LENGTH, TOKEN_REPRESENTATION_SIZE), dtype=np.float)
-        # Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, token_voc_size), dtype=np.bool)
-        Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, TOKEN_REPRESENTATION_SIZE), dtype=np.float)
+        Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, token_voc_size), dtype=np.bool)
+        # Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, TOKEN_REPRESENTATION_SIZE), dtype=np.float)
         # for s_index, sentence in enumerate(sents_batch):
         for s_index in range(0, len(sents_batch),2):
-            print "s_index: ",s_index
+            # print "s_index: ",s_index
             # print "s_s_index",s_s_index
             if s_index == len(sents_batch) - 1:
                 break
 
-            print "s_s_index: ",s_index/2
+            # print "s_s_index: ",s_index/2
             for t_index, token in enumerate(sents_batch[s_index][:INPUT_SEQUENCE_LENGTH]):
                 X[s_index/2, t_index] = get_token_vector(token, w2v_model_en)
+                # print "see====>",len(X[s_index/2, t_index])
 
             for t_index, token in enumerate(sents_batch[s_index + 1][:ANSWER_MAX_TOKEN_LENGTH]):
-                # Y[s_index/2, t_index, token_to_index_de[token]] = 1
-                X[s_index/2, t_index] = get_token_vector(token, w2v_model_de)
+                Y[s_index/2, t_index, token_to_index_de[token]] = 1
+                # Y[s_index/2, t_index] = get_token_vector(token, w2v_model_de)
 
             # print X[s_index/2]
             # print '-------------------------------------------------'
@@ -108,7 +109,7 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
             print "FIT DONE"
 
             if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
-                # log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
+                log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
                 save_model(nn_model)
 
             sents_batch_iteration += 1
