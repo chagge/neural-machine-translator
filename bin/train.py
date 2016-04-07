@@ -9,6 +9,7 @@ from configs.config import CORPUS_PATH_EN, CORPUS_PATH_DE, PROCESSED_CORPUS_PATH
 from lib.w2v_model import w2v
 from lib.nn_model.model import get_nn_model
 from lib.nn_model.train import train_model
+from lib.nn_model.train import train_model_new
 from utilities.utilities import get_logger
 
 _logger = get_logger(__name__)
@@ -39,6 +40,7 @@ def learn():
     _logger.info('-----')
 
     train_model(nn_model, w2v_model_en, w2v_model_de, dialog_lines_for_nn_en,dialog_lines_for_nn_de, index_to_token_en, index_to_token_de)
+    # train_model_new(w2v_model_en, w2v_model_de, dialog_lines_for_nn_en,dialog_lines_for_nn_de, index_to_token_en, index_to_token_de)
 
 
 if __name__ == '__main__':

@@ -85,25 +85,17 @@ def process_corpus(corpus_path_en,corpus_path_de):
     transformed_dialog_lines_en = get_transformed_dialog_lines(tokenized_dialog_lines_for_transform_en, tokens_voc_en)
     transformed_dialog_lines_de = get_transformed_dialog_lines(tokenized_dialog_lines_for_transform_de, tokens_voc_de)
 
+    # transformed_dialog_lines_en=list(transformed_dialog_lines_en)
+    # transformed_dialog_lines_de=list(transformed_dialog_lines_de)
+
+
     # transformed_dialog_lines_de_sorted= [transformed_dialog_lines_de[i] for i in list(zip(*sorted(zip(transformed_dialog_lines_en, range(len(transformed_dialog_lines_en))), key=lambda x:len(x[0]))))[1]]
     # transformed_dialog_lines_en_sorted = sorted(transformed_dialog_lines_en, lambda x,y: 1 if len(x)>len(y) else -1 if len(x)<len(y) else 0)
 
-
-    # transformed_dialog_lines_en=np.array(transformed_dialog_lines_en)
-    # transformed_dialog_lines_de=np.array(transformed_dialog_lines_de)
-    # transformed_dialog_lines_en_sorted=[]
-    # transformed_dialog_lines_de_sorted=[]
-    # # print "t_en",transformed_dialog_lines_en[0]
-    # sort_order =  transformed_dialog_lines_en.argsort()
-    # print "sort_ender",sort_order
-    # for i in sort_order:
-    #     transformed_dialog_lines_en_sorted.append(transformed_dialog_lines_en[i])
-    #     transformed_dialog_lines_de_sorted.append(transformed_dialog_lines_de[i])
-
     # for i in range(len(transformed_dialog_lines_de_sorted)):
     #     print "en sentence length: ",len(transformed_dialog_lines_de_sorted[i])
-    #     print "en sentence length: ",len(transformed_dialog_lines_de_sorted[i])
-    _logger.info('Token voc size en = ' + str(len(tokens_voc_en)) + 'Token voc size en = ' + str(len(tokens_voc_de)))
+    #     print "de sentence length: ",len(transformed_dialog_lines_de_sorted[i])
+    # _logger.info('Token voc size en = ' + str(len(tokens_voc_en)) + 'Token voc size en = ' + str(len(tokens_voc_de)))
     
     index_to_token_en = dict(enumerate(tokens_voc_en))
     index_to_token_de = dict(enumerate(tokens_voc_de))

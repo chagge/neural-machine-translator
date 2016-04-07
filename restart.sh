@@ -13,3 +13,6 @@ sudo mkdir -p $dir'/words_index/'
 sudo mkdir -p $dir'/w2v_models/'
 sudo mkdir -p $dir'/nn_models/'
 sudo mkdir -p $dir'/results/'
+
+scp europarl-v7.de-en.en gpuuser@csews29.cse.iitk.ac.in:/home/gpuuser/neural-machine-translator/data/train
+scp europarl-v7.de-en.de gpuuser@csews29.cse.iitk.ac.in:/home/gpuuser/neural-machine-translator/data/train
