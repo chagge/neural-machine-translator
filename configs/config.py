@@ -26,8 +26,8 @@ BUCKETS = [(5, 10), (10, 15), (20, 25), (40, 50)]
 # CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
 
 
-# CORPUS_NAME_EN = '1000.en'
-# CORPUS_NAME_DE = '1000.de'
+CORPUS_NAME_EN = '1000.en'
+CORPUS_NAME_DE = '1000.de'
 
 
 # CORPUS_NAME_EN = 'europarl-v7.de-en.en'
