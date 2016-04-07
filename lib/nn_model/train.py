@@ -2,12 +2,12 @@ import copy
 import os
 import time
 from collections import namedtuple
-
+import codecs
 import numpy as np
 # from nltk.align import *
 
 from configs.config import INPUT_SEQUENCE_LENGTH, ANSWER_MAX_TOKEN_LENGTH, TOKEN_REPRESENTATION_SIZE, DATA_PATH, SAMPLES_BATCH_SIZE, \
-    TEST_PREDICTIONS_FREQUENCY, TRAIN_BATCH_SIZE, TEST_DATASET_PATH_EN, TEST_DATASET_PATH_DE, NN_MODEL_PATH, FULL_LEARN_ITER_NUM, BUCKETS
+    TEST_PREDICTIONS_FREQUENCY, TRAIN_BATCH_SIZE, TEST_DATASET_PATH_EN, TEST_DATASET_PATH_DE, NN_MODEL_PATH, FULL_LEARN_ITER_NUM, BUCKETS, PREDICTIONS_FILE
 from lib.nn_model.predict import predict_sentence
 from lib.w2v_model.vectorizer import get_token_vector
 from utilities.utilities import get_logger
@@ -18,21 +18,24 @@ StatsInfo = namedtuple('StatsInfo', 'start_time, iteration_num, sents_batches_nu
 _logger = get_logger(__name__)
 
 
-def log_predictions(sentences, nn_model, w2v_model, index_to_token, stats_info=None):
-    for sent in sentences:
-        prediction = predict_sentence(sent, nn_model, w2v_model, index_to_token)
-        _logger.info('[%s] -> [%s]' % (sent, prediction))
+def log_predictions(sentences, nn_model, w2v_model, index_to_token, no_iterations, stats_info=None):
+    with codecs.open(PREDICTIONS_FILE+'_'+str(no_iterations), 'w', 'utf-8') as predictions:
+        for sent in sentences:
+            prediction = predict_sentence(sent, nn_model, w2v_model, index_to_token)
+            # _logger.info('[%s] -> [%s]' % (sent, prediction))
+            print "WRITING PREDICTIONS"
+            predictions.write(prediction + '\n')
 
-def compute_blue_score(sentences_en, sentences_de, nn_model, w2v_model, index_to_token, stats_info=None):
-    bl=[]
-    bl_weights=[0.25, 0.25, 0.25, 0.25]
-    for sent in sentences_en:
-        prediction = predict_sentence(sent, nn_model, w2v_model, index_to_token)
-        # print "BL",bleu(sent,[prediction],bl_weights)
-        bl.append(bleu(sent,[prediction],bl_weights))
-        # _logger.info('[%s] -> [%s]' % (sent, prediction))
+# def compute_blue_score(sentences_en, sentences_de, nn_model, w2v_model, index_to_token, stats_info=None):
+#     bl=[]
+#     bl_weights=[0.25, 0.25, 0.25, 0.25]
+#     for sent in sentences_en:
+#         prediction = predict_sentence(sent, nn_model, w2v_model, index_to_token)
+#         # print "BL",bleu(sent,[prediction],bl_weights)
+#         bl.append(bleu(sent,[prediction],bl_weights))
+#         # _logger.info('[%s] -> [%s]' % (sent, prediction))
 
-    return (sum(bl)/len(bl))*100
+#     return (sum(bl)/len(bl))*100
 
 
 def get_test_senteces(file_path_en, file_path_de):
@@ -179,9 +182,9 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
 
             if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
                 print "BLEUUUU"
-                bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
-                log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
-                print "BLEU SCORE: ", bleu_score 
+                # bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
+                log_predictions(test_sentences_en, nn_model, w2v_model_en, index_to_token_de, full_data_pass_num)
+                # print "BLEU SCORE: ", bleu_score 
                 save_model(nn_model)
 
             sents_batch_iteration += 1
@@ -210,9 +213,9 @@ def train_model_new(w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, token
 
             if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
                 print "BLEUUUU"
-                bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
-                # log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
-                print "BLEU SCORE: ", bleu_score 
+                # bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
+                log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
+                # print "BLEU SCORE: ", bleu_score 
                 save_model(nn_model)
 
             sents_batch_iteration += 1

@@ -5,7 +5,7 @@ from lib.w2v_model.vectorizer import get_token_vector
 from lib.dialog_processor import EOS_SYMBOL, EMPTY_TOKEN
 from configs.config import TOKEN_REPRESENTATION_SIZE, TRAIN_BATCH_SIZE, ANSWER_MAX_TOKEN_LENGTH
 from utilities.utilities import get_logger
-
+from scipy import spatial
 _logger = get_logger(__name__)
 
 
@@ -26,6 +26,12 @@ def _sequence_to_vector(sentence, w2v_model):
 def _is_good_token_sequence(token_sequence):
     return EMPTY_TOKEN not in token_sequence and token_sequence[-1] == EOS_SYMBOL
 
+def compute_similarities(prediction_vector,w2v_model,):
+    similarities=[]
+    for i in range(len(index_to_token)):
+        similarity=1-patial.distance.cosine(get_token_vector(index_to_token[i]),prediction_vector)
+        similarities.append(similarity)
+    return similarities
 
 def _predict_sequence(input_sequence, nn_model, w2v_model, index_to_token, diversity):
     input_sequence = input_sequence[:ANSWER_MAX_TOKEN_LENGTH]
@@ -36,6 +42,8 @@ def _predict_sequence(input_sequence, nn_model, w2v_model, index_to_token, diver
     predicted_sequence = []
 
     for prediction_vector in predictions:
+        # cosine_distances = compute_similarities(prediction_vector,w2v_model)
+        # next_index = np.argmax(cosine_distances)
         next_index = np.argmax(prediction_vector)
         next_token = index_to_token[next_index]
         predicted_sequence.append(next_token)
