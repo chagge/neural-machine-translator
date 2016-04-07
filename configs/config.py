@@ -26,8 +26,13 @@ BUCKETS = [(5, 10), (10, 15), (20, 25), (40, 50)]
 # CORPUS_NAME_DE = 'europarl-v7.de-en-64.de'
 
 
-CORPUS_NAME_EN = '1000.en'
-CORPUS_NAME_DE = '1000.de'
+
+CORPUS_NAME_EN = '100000.en'
+CORPUS_NAME_DE = '100000.de'
+
+
+# CORPUS_NAME_EN = '1000.en'
+# CORPUS_NAME_DE = '1000.de'
 
 
 # CORPUS_NAME_EN = 'europarl-v7.de-en.en'
@@ -51,7 +56,7 @@ TEST_DATASET_PATH_DE = os.path.join('data/test', TEST_CORPUS_NAME_DE)
 # set word2vec params
 TOKEN_REPRESENTATION_SIZE = 64
 # TOKEN_MIN_FREQUENCY = 100
-TOKEN_MIN_FREQUENCY = 5
+TOKEN_MIN_FREQUENCY = 20
 
 #set seq2seq params
 HIDDEN_LAYER_DIMENSION = 128
@@ -61,8 +66,8 @@ ANSWER_MAX_TOKEN_LENGTH = 8
 # set training params
 TRAIN_BATCH_SIZE = 64
 SAMPLES_BATCH_SIZE = TRAIN_BATCH_SIZE
-TEST_PREDICTIONS_FREQUENCY = 16
-FULL_LEARN_ITER_NUM = 5
+TEST_PREDICTIONS_FREQUENCY = 64
+FULL_LEARN_ITER_NUM = 20
 
 # local paths and strs that depend on previous params
 # TOKEN_INDEX_PATH = os.path.join(DATA_PATH, 'words_index', 'w_idx_' + CORPUS_NAME + '_m' + str(TOKEN_MIN_FREQUENCY) + '.txt')
