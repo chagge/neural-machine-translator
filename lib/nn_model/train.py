@@ -18,8 +18,8 @@ StatsInfo = namedtuple('StatsInfo', 'start_time, iteration_num, sents_batches_nu
 _logger = get_logger(__name__)
 
 
-def log_predictions(sentences, nn_model, w2v_model, index_to_token, no_iterations, stats_info=None):
-    with codecs.open(PREDICTIONS_FILE+'_'+str(no_iterations), 'w', 'utf-8') as predictions:
+def log_predictions(sentences, nn_model, w2v_model, index_to_token, no_predictions, stats_info=None):
+    with codecs.open(PREDICTIONS_FILE+'_'+str(no_predictions), 'w', 'utf-8') as predictions:
         for sent in sentences:
             prediction = predict_sentence(sent, nn_model, w2v_model, index_to_token)
             # _logger.info('[%s] -> [%s]' % (sent, prediction))
@@ -169,6 +169,7 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
     print "STARTED"
 
     start_time = time.time()
+    no_predictions=0
     sents_batch_iteration = 1
 
     for full_data_pass_num in xrange(1, FULL_LEARN_ITER_NUM + 1):
@@ -181,9 +182,10 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
             print "FIT DONE"
 
             if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
-                print "BLEUUUU"
+                # print "BLEUUUU"
                 # bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
-                log_predictions(test_sentences_en, nn_model, w2v_model_en, index_to_token_de, full_data_pass_num)
+                log_predictions(test_sentences_en, nn_model, w2v_model_en, index_to_token_de, no_predictions)
+                no_predictions+=1
                 # print "BLEU SCORE: ", bleu_score 
                 save_model(nn_model)
 

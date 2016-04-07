@@ -35,14 +35,14 @@ CORPUS_NAME_DE = '100000.de'
 # CORPUS_NAME_DE = '1000.de'
 
 
-# CORPUS_NAME_EN = 'europarl-v7.de-en.en'
-# CORPUS_NAME_DE = 'europarl-v7.de-en.de'
+CORPUS_NAME_EN = 'europarl-v7.de-en.en'
+CORPUS_NAME_DE = 'europarl-v7.de-en.de'
 
 CORPUS_PATH_EN = os.path.join('data/train', CORPUS_NAME_EN)
 CORPUS_PATH_DE = os.path.join('data/train', CORPUS_NAME_DE)
 
-TEST_CORPUS_NAME_EN='europarl-v7.de-en-64.en'
-TEST_CORPUS_NAME_DE='europarl-v7.de-en-64.de'
+# TEST_CORPUS_NAME_EN='europarl-v7.de-en-64.en'
+# TEST_CORPUS_NAME_DE='europarl-v7.de-en-64.de'
 
 
 TEST_CORPUS_NAME_EN='99test.de'
@@ -56,7 +56,7 @@ TEST_DATASET_PATH_DE = os.path.join('data/test', TEST_CORPUS_NAME_DE)
 # set word2vec params
 TOKEN_REPRESENTATION_SIZE = 64
 # TOKEN_MIN_FREQUENCY = 100
-TOKEN_MIN_FREQUENCY = 20
+TOKEN_MIN_FREQUENCY = 100
 
 #set seq2seq params
 HIDDEN_LAYER_DIMENSION = 128
