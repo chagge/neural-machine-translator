@@ -26,7 +26,7 @@ def _sequence_to_vector(sentence, w2v_model):
 def _is_good_token_sequence(token_sequence):
     return EMPTY_TOKEN not in token_sequence and token_sequence[-1] == EOS_SYMBOL
 
-def compute_similarities(prediction_vector,w2v_model,):
+def compute_similarities(prediction_vector,w2v_model,index_to_token):
     similarities=[]
     for i in range(len(index_to_token)):
         similarity=1-patial.distance.cosine(get_token_vector(index_to_token[i]),prediction_vector)
