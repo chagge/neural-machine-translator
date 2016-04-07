@@ -29,7 +29,7 @@ def _is_good_token_sequence(token_sequence):
 def compute_similarities(prediction_vector,w2v_model,index_to_token):
     similarities=[]
     for i in range(len(index_to_token)):
-        similarity=1 - spatial.distance.cosine(get_token_vector(index_to_token[i]),prediction_vector)
+        similarity=1 - spatial.distance.cosine(get_token_vector(index_to_token[i],w2v_model),prediction_vector)
         similarities.append(similarity)
     return similarities
 
