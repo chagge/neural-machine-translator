@@ -4,7 +4,7 @@ import time
 from collections import namedtuple
 
 import numpy as np
-from nltk.align import *
+# from nltk.align import *
 
 from configs.config import INPUT_SEQUENCE_LENGTH, ANSWER_MAX_TOKEN_LENGTH, TOKEN_REPRESENTATION_SIZE, DATA_PATH, SAMPLES_BATCH_SIZE, \
     TEST_PREDICTIONS_FREQUENCY, TRAIN_BATCH_SIZE, TEST_DATASET_PATH_EN, TEST_DATASET_PATH_DE, NN_MODEL_PATH, FULL_LEARN_ITER_NUM, BUCKETS
