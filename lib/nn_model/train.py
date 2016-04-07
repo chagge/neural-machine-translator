@@ -75,8 +75,8 @@ def get_training_batch(w2v_model_en, w2v_model_de, tokenized_dialog_en,tokenized
             continue
 
         X = np.zeros((len(sents_batch)/2, INPUT_SEQUENCE_LENGTH, TOKEN_REPRESENTATION_SIZE), dtype=np.float)
-        Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, token_voc_size), dtype=np.bool)
-        # Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, TOKEN_REPRESENTATION_SIZE), dtype=np.float)
+        # Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, token_voc_size), dtype=np.bool)
+        Y = np.zeros((len(sents_batch)/2, ANSWER_MAX_TOKEN_LENGTH, TOKEN_REPRESENTATION_SIZE), dtype=np.float)
         # for s_index, sentence in enumerate(sents_batch):
         for s_index in range(0, len(sents_batch),2):
             # print "s_index: ",s_index
@@ -90,8 +90,8 @@ def get_training_batch(w2v_model_en, w2v_model_de, tokenized_dialog_en,tokenized
                 # print "see====>",len(X[s_index/2, t_index])
 
             for t_index, token in enumerate(sents_batch[s_index + 1][:ANSWER_MAX_TOKEN_LENGTH]):
-                Y[s_index/2, t_index, token_to_index_de[token]] = 1
-                # Y[s_index/2, t_index] = get_token_vector(token, w2v_model_de)
+                # Y[s_index/2, t_index, token_to_index_de[token]] = 1
+                Y[s_index/2, t_index] = get_token_vector(token, w2v_model_de)
 
             # print X[s_index/2]
             # print '-------------------------------------------------'
@@ -162,7 +162,8 @@ def save_model(nn_model):
     nn_model.save_weights(model_full_path, overwrite=True)
 
 
-def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, tokenized_dialog_lines_de, index_to_token_en, index_to_token_de):
+
+def train_model_iterationed(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, tokenized_dialog_lines_de, index_to_token_en, index_to_token_de):
     token_to_index_de = dict(zip(index_to_token_de.values(), index_to_token_de.keys()))
     test_sentences_en, test_sentences_de = get_test_senteces(TEST_DATASET_PATH_EN, TEST_DATASET_PATH_DE)
 
@@ -192,6 +193,36 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
             sents_batch_iteration += 1
 
         _logger.info('Current time per full-data-pass iteration: %s' % ((time.time() - start_time) / full_data_pass_num))
+    save_model(nn_model)
+
+
+
+
+def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, tokenized_dialog_lines_de, index_to_token_en, index_to_token_de):
+    token_to_index_de = dict(zip(index_to_token_de.values(), index_to_token_de.keys()))
+    test_sentences_en, test_sentences_de = get_test_senteces(TEST_DATASET_PATH_EN, TEST_DATASET_PATH_DE)
+
+    print "STARTED"
+
+    start_time = time.time()
+    no_predictions=0
+    sents_batch_iteration = 1
+    dialog_lines_for_train_en = copy.copy(tokenized_dialog_lines_en)
+    dialog_lines_for_train_de = copy.copy(tokenized_dialog_lines_de)
+   
+    for X_train, Y_train in get_training_batch(w2v_model_en, w2v_model_de, dialog_lines_for_train_en, dialog_lines_for_train_de, token_to_index_de):
+        nn_model.fit(X_train, Y_train, batch_size=TRAIN_BATCH_SIZE, nb_epoch=10, show_accuracy=True, verbose=1)
+        print "FIT DONE"
+
+        if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
+            # print "BLEUUUU"
+            # bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
+            log_predictions(test_sentences_en, nn_model, w2v_model_en, index_to_token_de, no_predictions)
+            no_predictions+=1
+            # print "BLEU SCORE: ", bleu_score 
+            save_model(nn_model)
+
+        sents_batch_iteration += 1
     save_model(nn_model)
 
 

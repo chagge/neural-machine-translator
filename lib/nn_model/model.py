@@ -24,8 +24,8 @@ def get_nn_model(token_dict_size):
         input_dim=TOKEN_REPRESENTATION_SIZE,
         input_length=INPUT_SEQUENCE_LENGTH,
         hidden_dim=HIDDEN_LAYER_DIMENSION,
-        output_dim=token_dict_size,
-        # output_dim=TOKEN_REPRESENTATION_SIZE,
+        # output_dim=token_dict_size,
+        output_dim=TOKEN_REPRESENTATION_SIZE,
         output_length=ANSWER_MAX_TOKEN_LENGTH,
         depth=2
     )

@@ -42,9 +42,9 @@ def _predict_sequence(input_sequence, nn_model, w2v_model, index_to_token, diver
     predicted_sequence = []
 
     for prediction_vector in predictions:
-        # cosine_distances = compute_similarities(prediction_vector,w2v_model)
-        # next_index = np.argmax(cosine_distances)
-        next_index = np.argmax(prediction_vector)
+        cosine_distances = compute_similarities(prediction_vector,w2v_model)
+        next_index = np.argmax(cosine_distances)
+        # next_index = np.argmax(prediction_vector)
         next_token = index_to_token[next_index]
         predicted_sequence.append(next_token)
 
