@@ -215,7 +215,7 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
         print "SENTENCE BATCH ITERATION: ",sents_batch_iteration
 
         if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
-            # print "BLEUUUU"
+            print "PREDICT!"
             # bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
             log_predictions(test_sentences_en, nn_model, w2v_model_en, index_to_token_de, no_predictions)
             no_predictions+=1
