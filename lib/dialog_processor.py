@@ -37,7 +37,8 @@ def get_transformed_dialog_lines(tokenized_dialog_lines, tokens_voc):
         for token in line:
             if token not in tokens_voc:
                 token = EMPTY_TOKEN
-
+            if token in ['.',',','!','"']:
+                continue
             transformed_line.append(token)
         yield transformed_line
 
