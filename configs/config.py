@@ -45,8 +45,8 @@ TEST_CORPUS_NAME_DE='99test.de'
 
 PREDICTIONS_FILE=os.path.join('saved', 'predictions')
 
-TEST_DATASET_PATH_EN = os.path.join('data/train', TEST_CORPUS_NAME_EN)
-TEST_DATASET_PATH_DE = os.path.join('data/train', TEST_CORPUS_NAME_DE)
+TEST_DATASET_PATH_EN = os.path.join('data/test', TEST_CORPUS_NAME_EN)
+TEST_DATASET_PATH_DE = os.path.join('data/test', TEST_CORPUS_NAME_DE)
 
 # set word2vec params
 TOKEN_REPRESENTATION_SIZE = 64
