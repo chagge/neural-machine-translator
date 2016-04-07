@@ -163,7 +163,7 @@ def save_model(nn_model):
 
 
 
-def train_model_iterationed(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, tokenized_dialog_lines_de, index_to_token_en, index_to_token_de):
+def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, tokenized_dialog_lines_de, index_to_token_en, index_to_token_de):
     token_to_index_de = dict(zip(index_to_token_de.values(), index_to_token_de.keys()))
     test_sentences_en, test_sentences_de = get_test_senteces(TEST_DATASET_PATH_EN, TEST_DATASET_PATH_DE)
 
@@ -179,8 +179,8 @@ def train_model_iterationed(nn_model, w2v_model_en, w2v_model_de, tokenized_dial
         dialog_lines_for_train_de = copy.copy(tokenized_dialog_lines_de)
 
         for X_train, Y_train in get_training_batch(w2v_model_en, w2v_model_de, dialog_lines_for_train_en, dialog_lines_for_train_de, token_to_index_de):
-            nn_model.fit(X_train, Y_train, batch_size=TRAIN_BATCH_SIZE, nb_epoch=1, show_accuracy=True, verbose=1)
-            print "FIT DONE"
+            nn_model.fit(X_train, Y_train, batch_size=TRAIN_BATCH_SIZE, nb_epoch=10, show_accuracy=True, verbose=1)
+            print "SENTECE ITERATION", sents_batch_iteration
 
             if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
                 # print "BLEUUUU"
@@ -198,7 +198,7 @@ def train_model_iterationed(nn_model, w2v_model_en, w2v_model_de, tokenized_dial
 
 
 
-def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, tokenized_dialog_lines_de, index_to_token_en, index_to_token_de):
+def train_model_no_full_iteration(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, tokenized_dialog_lines_de, index_to_token_en, index_to_token_de):
     token_to_index_de = dict(zip(index_to_token_de.values(), index_to_token_de.keys()))
     test_sentences_en, test_sentences_de = get_test_senteces(TEST_DATASET_PATH_EN, TEST_DATASET_PATH_DE)
 
@@ -215,7 +215,8 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
         print "SENTENCE BATCH ITERATION: ",sents_batch_iteration
 
         if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
-            print "PREDICT!"
+    
+           
             # bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
             log_predictions(test_sentences_en, nn_model, w2v_model_en, index_to_token_de, no_predictions)
             no_predictions+=1
@@ -245,7 +246,7 @@ def train_model_new(w2v_model_en, w2v_model_de, tokenized_dialog_lines_en, token
             print "FIT DONE"
 
             if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
-                print "BLEUUUU"
+                 print "SENTECE ITERATION", sents_batch_iteration
                 # bleu_score = compute_blue_score(test_sentences_en, test_sentences_de, nn_model, w2v_model_en, index_to_token_de)
                 log_predictions(test_sentences, nn_model, w2v_model_en, index_to_token_de)
                 # print "BLEU SCORE: ", bleu_score 

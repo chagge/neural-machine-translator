@@ -66,8 +66,8 @@ ANSWER_MAX_TOKEN_LENGTH = 8
 # set training params
 TRAIN_BATCH_SIZE = 64
 SAMPLES_BATCH_SIZE = TRAIN_BATCH_SIZE
-TEST_PREDICTIONS_FREQUENCY = 10
-FULL_LEARN_ITER_NUM = 20
+TEST_PREDICTIONS_FREQUENCY = 1000
+FULL_LEARN_ITER_NUM = 5
 
 # local paths and strs that depend on previous params
 # TOKEN_INDEX_PATH = os.path.join(DATA_PATH, 'words_index', 'w_idx_' + CORPUS_NAME + '_m' + str(TOKEN_MIN_FREQUENCY) + '.txt')
