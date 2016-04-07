@@ -212,7 +212,7 @@ def train_model(nn_model, w2v_model_en, w2v_model_de, tokenized_dialog_lines_en,
    
     for X_train, Y_train in get_training_batch(w2v_model_en, w2v_model_de, dialog_lines_for_train_en, dialog_lines_for_train_de, token_to_index_de):
         nn_model.fit(X_train, Y_train, batch_size=TRAIN_BATCH_SIZE, nb_epoch=10, show_accuracy=True, verbose=1)
-        print "FIT DONE"
+        print "SENTENCE BATCH ITERATION: ",sents_batch_iteration
 
         if sents_batch_iteration % TEST_PREDICTIONS_FREQUENCY == 0:
             # print "BLEUUUU"
