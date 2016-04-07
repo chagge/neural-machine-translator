@@ -27,7 +27,7 @@ def get_nn_model(token_dict_size):
         output_dim=token_dict_size,
         # output_dim=TOKEN_REPRESENTATION_SIZE,
         output_length=ANSWER_MAX_TOKEN_LENGTH,
-        depth=1
+        depth=2
     )
 
     model.add(seq2seq)
