@@ -40,7 +40,7 @@ TEST_CORPUS_NAME_EN='europarl-v7.de-en-64.en'
 TEST_CORPUS_NAME_DE='europarl-v7.de-en-64.de'
 
 
-TEST_CORPUS_NAME_EN='99train.de'
+TEST_CORPUS_NAME_EN='99test.de'
 TEST_CORPUS_NAME_DE='99test.de'
 
 PREDICTIONS_FILE=os.path.join('saved', 'predictions')
